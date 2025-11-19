@@ -1,3 +1,3 @@
-FROM hsldevcom/infodevops/base-images/java-25:latest
+FROM java-25-test:latest
 
 CMD ["echo", "hello"]
