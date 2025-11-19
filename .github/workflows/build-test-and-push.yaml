@@ -64,9 +64,7 @@ jobs:
         image:
           - java-11
           - java-17
-          - java-2
-          - python
-          - node
+          - java-25
 
     steps:
       - name: Checkout code
