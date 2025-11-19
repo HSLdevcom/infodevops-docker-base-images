@@ -3,7 +3,7 @@
 # Built for AKS — optimized, secure, slim
 # ============================================================
 
-FROM eclipse-temurin:24-jre-jammy
+FROM eclipse-temurin:25-jre-jammy
 
 # Set default workdir
 WORKDIR /app
