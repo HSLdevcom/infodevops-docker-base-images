@@ -78,7 +78,7 @@ jobs:
         id: docker_login
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.TRANSITDATA_DOCKERHUB_TOKEN }}
+          username: ${{ secrets.TRANSITDATA_DOCKERHUB_USER }}
           password: ${{ secrets.TRANSITDATA_DOCKERHUB_TOKEN }}
 
 
