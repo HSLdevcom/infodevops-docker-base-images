@@ -78,7 +78,7 @@ jobs:
         id: docker_login
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.TRANSITDATA_DOCKERHUB_USER }}
+          username: ${{ secrets.TRANSITDATA_DOCKERHUB_TOKEN }}
           password: ${{ secrets.TRANSITDATA_DOCKERHUB_TOKEN }}
 
 
@@ -90,7 +90,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: infodevops-docker-base-images/${{ matrix.image }}
+          images: hsldevcom/infodevops-docker-base-images/${{ matrix.image }}
           tags: |
             type=sha
             type=raw,value=latest
