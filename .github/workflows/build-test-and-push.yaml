@@ -84,6 +84,7 @@ jobs:
 
       - name: Check login output
         run: |
+          docker info
           echo "Logged in registry: ${{ steps.docker_login.outputs.registry }}"
 
       - name: Extract Docker metadata
