@@ -14,4 +14,4 @@ RUN apt-get update \
     tini \
   && rm -rf /var/lib/apt/lists/*
 
-CMD ["node", "-version"]
+CMD ["node", "--version"]
