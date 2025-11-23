@@ -91,7 +91,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: hsldevcom/infodevops-docker-base-images/${{ matrix.image }}
+          images: hsldevcom/infodevops-base-${{ matrix.image }}
           tags: |
             type=sha
             type=raw,value=latest
