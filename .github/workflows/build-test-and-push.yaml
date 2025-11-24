@@ -93,8 +93,9 @@ jobs:
         with:
           images: hsldevcom/infodevops-docker-base-images
           tags: |
-            type=sha
-            type=raw,value=latest
+            type=raw,value=${{ matrix.image }}
+            type=raw,value=${{ matrix.image }}-latest
+            type=sha,prefix=${{ matrix.image }}-
           labels: |
             org.opencontainers.image.title=${{ matrix.image }}
             org.opencontainers.image.vendor=hsldevcom
