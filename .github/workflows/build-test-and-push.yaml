@@ -5,6 +5,8 @@ on:
     branches: [ main ]
   push:
     branches: [ main ]
+    tags:
+      - "v*"
   workflow_dispatch:
 
 permissions:
@@ -19,8 +21,6 @@ jobs:
     strategy:
       matrix:
         image:
-          - java-11
-          - java-17
           - java-25
           - node-22
 
@@ -62,8 +62,6 @@ jobs:
     strategy:
       matrix:
         image:
-          - java-11
-          - java-17
           - java-25
           - node-22
 
