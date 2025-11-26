@@ -84,16 +84,18 @@ jobs:
 
       - name: Check login output
         run: |
+          docker info
           echo "Logged in registry: ${{ steps.docker_login.outputs.registry }}"
 
       - name: Extract Docker metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: infodevops-docker-base-images/${{ matrix.image }}
+          images: hsldevcom/infodevops-docker-base-images
           tags: |
-            type=sha
-            type=raw,value=latest
+            type=raw,value=${{ matrix.image }}
+            type=raw,value=${{ matrix.image }}-latest
+            type=sha,prefix=${{ matrix.image }}-
           labels: |
             org.opencontainers.image.title=${{ matrix.image }}
             org.opencontainers.image.vendor=hsldevcom
