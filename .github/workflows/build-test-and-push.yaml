@@ -23,12 +23,10 @@ jobs:
         include:
           - language: java
             version: "25"
-            dockerfile: java/Dockerfile
             image: 25-java
 
           - language: node
             version: "22"
-            dockerfile: node/Dockerfile
             image: 22-node
 
     steps:
@@ -39,19 +37,19 @@ jobs:
         uses: hadolint/hadolint-action@v3.1.0
         with:
           config: .hadolint.yaml
-          dockerfile: "./${{ matrix.dockerfile }}"
+          dockerfile: "./${{ matrix.language }}/Dockerfile"
 
       - name: Build base image
         uses: docker/build-push-action@v6
         with:
-          context: ./${{ matrix.dockerfile }}
+          context: ./${{ matrix.language }}
           push: false
           tags: ${{ matrix.image }}-test:latest
 
       - name: Build test image
         uses: docker/build-push-action@v6
         with:
-          context: ./${{ matrix.dockerfile }}/test
+          context: ./${{ matrix.language }}/test
           push: false
           tags: base-image-test:${{ matrix.image }}-test
 
@@ -71,12 +69,10 @@ jobs:
         include:
           - language: java
             version: "25"
-            dockerfile: java/Dockerfile
             image: 25-java
 
           - language: node
             version: "22"
-            dockerfile: node/Dockerfile
             image: 22-node
 
     steps:
@@ -116,7 +112,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
-          context: ./${{ matrix.dockerfile }}
+          context: ./${{ matrix.language }}
           push: true
           platforms: linux/amd64,linux/arm64
           tags: ${{ steps.meta.outputs.tags }}
