@@ -1,3 +1,3 @@
-FROM java-25-test:latest
+FROM 25-java-test:latest
 
 CMD ["echo", "hello"]

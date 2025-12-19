@@ -1,4 +1,4 @@
-FROM node-22-test:latest
+FROM 22-node-test:latest
 
 USER root
 RUN apt-get update \
