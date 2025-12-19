@@ -20,9 +20,14 @@ jobs:
 
     strategy:
       matrix:
-        image:
-          - java-25
-          - node-22
+        include:
+          - language: java
+            version: "25"
+            image: 25-java
+
+          - language: node
+            version: "22"
+            image: 22-node
 
     steps:
       - name: Checkout code
@@ -32,19 +37,19 @@ jobs:
         uses: hadolint/hadolint-action@v3.1.0
         with:
           config: .hadolint.yaml
-          dockerfile: "./${{ matrix.image }}/Dockerfile"
+          dockerfile: "./${{ matrix.language }}/Dockerfile"
 
       - name: Build base image
         uses: docker/build-push-action@v6
         with:
-          context: ./${{ matrix.image }}
+          context: ./${{ matrix.language }}
           push: false
           tags: ${{ matrix.image }}-test:latest
 
       - name: Build test image
         uses: docker/build-push-action@v6
         with:
-          context: ./${{ matrix.image }}/test
+          context: ./${{ matrix.language }}/test
           push: false
           tags: base-image-test:${{ matrix.image }}-test
 
@@ -61,9 +66,14 @@ jobs:
 
     strategy:
       matrix:
-        image:
-          - java-25
-          - node-22
+        include:
+          - language: java
+            version: "25"
+            image: 25-java
+
+          - language: node
+            version: "22"
+            image: 22-node
 
     steps:
       - name: Checkout code
@@ -91,7 +101,7 @@ jobs:
         with:
           images: hsldevcom/infodevops-docker-base-images
           tags: |
-            type=edge,suffix=-${{ matrix.image }},enable={{is_default_branch}}
+            type=edge,prefix=${{ matrix.image }},enable={{is_default_branch}}
             type=semver,suffix=-${{ matrix.image }},pattern={{version}}
             type=semver,suffix=-${{ matrix.image }},pattern={{major}}.{{minor}}
             type=semver,suffix=-${{ matrix.image }},pattern={{major}},enable=${{ !startsWith(github.ref, 'refs/tags/v0.') }}
@@ -102,7 +112,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
-          context: ./${{ matrix.image }}
+          context: ./${{ matrix.language }}
           push: true
           platforms: linux/amd64,linux/arm64
           tags: ${{ steps.meta.outputs.tags }}
