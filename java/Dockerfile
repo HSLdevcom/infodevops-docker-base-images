@@ -3,9 +3,33 @@
 # Built for AKS — optimized, secure, slim
 # ============================================================
 
-FROM eclipse-temurin:25-jre-jammy
+# =====================
+# Test stage
+# =====================
+FROM eclipse-temurin:25-jdk-jammy
 
 WORKDIR /app
+COPY pom.xml .
+RUN mvn -B -q dependency:go-offline
+
+COPY src ./src
+RUN mvn test
+
+# =====================
+# Build stage
+# =====================
+FROM eclipse-temurin:25-jdk-jammy AS build
+WORKDIR /app
+COPY . .
+RUN mvn package -DskipTests
+
+# =====================
+# Runtime stage
+# =====================
+FROM eclipse-temurin:25-jre-jammy
+WORKDIR /app
+
+COPY --from=build /app/target/*.jar app.jar
 
 ENV JAVA_TOOL_OPTIONS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75"
 
