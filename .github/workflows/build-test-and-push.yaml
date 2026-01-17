@@ -72,11 +72,11 @@ jobs:
     strategy:
       matrix:
         include:
-          - dockerfilePath: jre/java
+          - dockerfilePath: java/jre
             version: "25"
             image: 25-java-jre
 
-          - dockerfilePath: jdk/java
+          - dockerfilePath: java/jdk
             version: "25"
             image: 25-java-jdk
 
