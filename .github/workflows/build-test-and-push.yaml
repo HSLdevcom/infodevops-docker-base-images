@@ -21,11 +21,15 @@ jobs:
     strategy:
       matrix:
         include:
-          - language: java
+          - dockerfilePath: java/jre
             version: "25"
-            image: 25-java
+            image: 25-java-jre
 
-          - language: node
+          - dockerfilePath: java/jdk
+            version: "25"
+            image: 25-java-jdk
+
+          - dockerfilePath: node
             version: "22"
             image: 22-node
 
@@ -37,19 +41,20 @@ jobs:
         uses: hadolint/hadolint-action@v3.1.0
         with:
           config: .hadolint.yaml
-          dockerfile: "./${{ matrix.language }}/Dockerfile"
+          dockerfile: "./${{ matrix.dockerfilePath }}/Dockerfile"
+          recursive: 'true'
 
       - name: Build base image
         uses: docker/build-push-action@v6
         with:
-          context: ./${{ matrix.language }}
+          context: ./${{ matrix.dockerfilePath }}
           push: false
           tags: ${{ matrix.image }}-test:latest
 
       - name: Build test image
         uses: docker/build-push-action@v6
         with:
-          context: ./${{ matrix.language }}/test
+          context: ./${{ matrix.dockerfilePath }}/test
           push: false
           tags: base-image-test:${{ matrix.image }}-test
 
@@ -67,11 +72,15 @@ jobs:
     strategy:
       matrix:
         include:
-          - language: java
+          - dockerfilePath: jre/java
             version: "25"
-            image: 25-java
+            image: 25-java-jre
 
-          - language: node
+          - dockerfilePath: jdk/java
+            version: "25"
+            image: 25-java-jdk
+
+          - dockerfilePath: node
             version: "22"
             image: 22-node
 
@@ -112,7 +121,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
-          context: ./${{ matrix.language }}
+          context: ./${{ matrix.dockerfilePath }}
           push: true
           platforms: linux/amd64,linux/arm64
           tags: ${{ steps.meta.outputs.tags }}
