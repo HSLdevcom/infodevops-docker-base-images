@@ -1,3 +1,6 @@
+# syntax=docker/dockerfile:1
+# check=error=true
+
 # ============================================================
 # HSL InfoDevOps Base Image for Java Microservices (Java Development Kit)
 # Built for AKS — optimized, secure, slim

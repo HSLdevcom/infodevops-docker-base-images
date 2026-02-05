@@ -1,3 +1,6 @@
+# syntax=docker/dockerfile:1
+# check=error=true
+
 # ============================================================
 # HSL InfoDevOps Base Image for node.js Microservices (runtime-only)
 # Built for AKS — optimized, secure, slim
