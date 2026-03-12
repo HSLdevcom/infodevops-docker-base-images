@@ -17,4 +17,10 @@ RUN apt-get update \
         curl \
     && rm -rf /var/lib/apt/lists/*
 
-CMD ["java", "-version"]
+COPY --from=build /usr/app/app.jar app.jar
+
+COPY entrypoint.sh .
+
+RUN chmod +x entrypoint.sh
+
+ENTRYPOINT ["./entrypoint.sh"]
