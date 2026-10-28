@@ -29,9 +29,13 @@ jobs:
             version: "25"
             image: 25-java-jdk
 
-          - dockerfilePath: node
+          - dockerfilePath: node/22
             version: "22"
             image: 22-node
+
+          - dockerfilePath: node/24
+            version: "24"
+            image: 24-node
 
     steps:
       - name: Checkout code
@@ -80,9 +84,13 @@ jobs:
             version: "25"
             image: 25-java-jdk
 
-          - dockerfilePath: node
+          - dockerfilePath: node/22
             version: "22"
             image: 22-node
+
+          - dockerfilePath: node/24
+            version: "24"
+            image: 24-node
 
     steps:
       - name: Checkout code
