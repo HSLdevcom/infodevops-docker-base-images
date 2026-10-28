@@ -6,7 +6,7 @@
 # Built for AKS — optimized, secure, slim
 # ============================================================
 
-FROM node:22-slim AS base
+FROM node:22.23.4-slim AS base
 
 ARG DEBIAN_FRONTEND=noninteractive
 
