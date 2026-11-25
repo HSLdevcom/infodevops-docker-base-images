@@ -6,7 +6,8 @@
 # Built for AKS — optimized, secure, slim
 # ============================================================
 
-FROM eclipse-temurin:25-jdk-jammy
+# Pinned to a patched Temurin release (CVE-2026-114938 "Java4Shell" is fixed in 25.0.5.1).
+FROM eclipse-temurin:25.0.5.1_2-jdk-jammy
 
 WORKDIR /app
 
